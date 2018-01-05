@@ -10,6 +10,18 @@ class NeuronLayer():
 			self.synaptic_weight = 2*random.random([inputs, neurons])
 		else: self.synaptic_weight = predefined_weight
 
+from numpy import exp, array, random, dot, average, save, load
+import sys
+
+if sys.version_info >= (3, 0):
+	xrange = range
+
+class NeuronLayer():
+	def __init__(self, neurons, inputs, predefined_weight=array(0)):
+		if predefined_weight.all() == 0:
+			self.synaptic_weight = 2*random.random([inputs, neurons])
+		else: self.synaptic_weight = predefined_weight
+
 class NeuralNetwork():
 	def __init__(self, layers):
 		previousValue = 0
@@ -74,8 +86,10 @@ class NeuralNetwork():
 		return array(output)
 
 	def load_weights(self,file_name):
-		file = open(file_name, "r")
-		c = load(file)
+		if sys.version_info >= (3, 0):
+			c = load(file_name,encoding='latin1')
+		else:
+			c = load(file_name)
 		if len(c) == len(self.layer):
 			for x in xrange(len(c)):
 				if len(c[x]) == len(self.layer[x].synaptic_weight):
@@ -86,9 +100,6 @@ class NeuralNetwork():
 		else:
 			raise Exception('The number of layers must match with the number of configured layers in the NeuralNetwork' + '\n'
 			 + 'The number of layers in file: ' + str(c) + 'The number of layers in the NeuralNetwork: ' + str(len(self.layer)))
-		file.close()
 
 	def save_weights(self, file_name):
-		file = open(file_name, "w")
-		save(file,self.get_weights())
-		file.close()
+		save(file_name,self.get_weights())
