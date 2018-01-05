@@ -1,5 +1,4 @@
 from numpy import exp, array, random, dot, average
-import pickle
 
 class NeuronLayer():
 	def __init__(self, neurons, inputs, predefined_weight=array(0)):
@@ -71,6 +70,7 @@ class NeuralNetwork():
 		return output
 
 	def load_weights(self,file_name):
+		import pickle
 		file = open(file_name, "r")
 		c = array(pickle.load(file))
 		if len(c) == len(self.layer):
@@ -86,6 +86,7 @@ class NeuralNetwork():
 		file.close()
 
 	def save_weights(self, file_name):
+		import pickle
 		file = open(file_name, "w")
 		pickle.dump(self.get_weights(),file)
 		file.close()
