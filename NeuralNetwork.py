@@ -49,10 +49,10 @@ class NeuralNetwork():
 				for x in xrange(len(self.layer)):
 					self.layer[x].synaptic_weight += learning_rate * layer_adjustment[x]
 				sum_error = sum([(training_set_output[i]-output_from_layer[-1][i])**2 for i in range(len(training_set_output))])/len(training_set_output)
-				if average(sum_error) < tolerance:
+				if sum_error < tolerance:
 					break
 				if verbose:
-					print('>epoch=%d, learning rate=%.3f, error=%.3f' % (iteration, learning_rate, 100*average(sum_error)))
+					print('>epoch=%d, learning rate=%.3f, error=%.3f' % (iteration, learning_rate, 100*sum_error))
 		else:
 			raise Exception('The number of training_set_input must be equal with the number of training_set_output')
 
