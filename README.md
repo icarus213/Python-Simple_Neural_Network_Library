@@ -9,4 +9,6 @@ A simple Neural Network library for non-complex tasks and to mess around
 - Save and load weights from a file
 
 Based from Siraj Raval's code (https://github.com/llSourcell/Make_a_neural_network).
-I just added some features
+I just added extra some features
+
+Sorry for bad english
