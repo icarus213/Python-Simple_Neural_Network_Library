@@ -1,4 +1,8 @@
 from numpy import exp, array, random, dot, average, save, load
+import sys
+
+if sys.version_info >= (3, 0):
+	xrange = range
 
 class NeuronLayer():
 	def __init__(self, neurons, inputs, predefined_weight=array(0)):
@@ -48,7 +52,7 @@ class NeuralNetwork():
 					previousValue = output_from_layer[x]
 				for x in xrange(len(self.layer)):
 					self.layer[x].synaptic_weight += learning_rate * layer_adjustment[x]
-				sum_error = sum([(training_set_output[i]-output_from_layer[-1][i])**2 for i in range(len(training_set_output))])/len(training_set_output)
+				sum_error = average(sum([(training_set_output[i]-output_from_layer[-1][i])**2 for i in xrange(len(training_set_output))])/len(training_set_output))
 				if sum_error < tolerance:
 					break
 				if verbose:
@@ -73,7 +77,7 @@ class NeuralNetwork():
 		file = open(file_name, "r")
 		c = load(file)
 		if len(c) == len(self.layer):
-			for x in range(len(c)):
+			for x in xrange(len(c)):
 				if len(c[x]) == len(self.layer[x].synaptic_weight):
 					self.layer[x].synaptic_weight = array(c[x])
 				else:
