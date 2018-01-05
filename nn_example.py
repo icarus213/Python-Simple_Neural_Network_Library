@@ -19,7 +19,7 @@ training_set_outputs = array([[0],[1],[1],[0],[0],[0],[0]])
 
 # Train the neural network using the training set.
 # Do it 60,000 times and make small adjustments each time.
-neural_network.train(training_set_inputs, training_set_outputs, 60000, verbose=True)
+neural_network.train(training_set_inputs, training_set_outputs, 60000,learning_rate=0.1,tolerance=0.001 verbose=True)
 
 print "Stage 2) New synaptic weights after training: "
 neural_network.print_weights()
