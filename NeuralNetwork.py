@@ -1,4 +1,4 @@
-from numpy import exp, array, random, dot, average
+from numpy import exp, array, random, dot, average, save, load
 
 class NeuronLayer():
 	def __init__(self, neurons, inputs, predefined_weight=array(0)):
@@ -66,13 +66,12 @@ class NeuralNetwork():
 	def get_weights(self):
 		output = []
 		for x in self.layer:
-			output.append(x.synaptic_weight.tolist())
-		return output
+			output.append(x.synaptic_weight)
+		return array(output)
 
 	def load_weights(self,file_name):
-		import pickle
 		file = open(file_name, "r")
-		c = array(pickle.load(file))
+		c = load(file)
 		if len(c) == len(self.layer):
 			for x in range(len(c)):
 				if len(c[x]) == len(self.layer[x].synaptic_weight):
@@ -86,7 +85,6 @@ class NeuralNetwork():
 		file.close()
 
 	def save_weights(self, file_name):
-		import pickle
 		file = open(file_name, "w")
-		pickle.dump(self.get_weights(),file)
+		save(file,self.get_weights())
 		file.close()
